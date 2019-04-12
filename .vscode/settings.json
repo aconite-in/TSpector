@@ -1,0 +1,14 @@
+{
+    "cucumberautocomplete.steps": [
+        "Steps/*.ts"
+    ],
+    "cucumberautocomplete.syncfeatures": "features/*.feature",
+    "cucumberautocomplete.strictGherkinCompletion": true,
+    "files.exclude": {
+        "**/.git": true,
+        "**/package-lock.json": true,
+        "**/package.json": true,
+        "**/*.js": false,
+        "**/node_modules": false
+    }
+}

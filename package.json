@@ -1,0 +1,21 @@
+{
+  "name": "tspector",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@types/cucumber": "^4.0.5",
+    "@types/node": "^11.13.4",
+    "@types/protractor": "^4.0.0",
+    "cucumber": "^5.1.0",
+    "protractor": "^5.4.2"
+  },
+  "devDependencies": {
+    "protractor-cucumber-framework": "^6.1.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "abhishek.gaikwad",
+  "license": "ISC"
+}
