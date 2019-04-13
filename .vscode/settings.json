@@ -8,7 +8,8 @@
         "**/.git": true,
         "**/package-lock.json": true,
         "**/package.json": true,
-        "**/*.js": false,
-        "**/node_modules": false
+        "**/*.js": true,
+        "**/*.js.map": true,
+        "**/node_modules": true
     }
 }
