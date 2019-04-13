@@ -49,10 +49,6 @@ cucumber_1.Given('I go to {string}', function (test) {
     protractor_1.browser.navigate().to("https://www.google.com/");
 });
 cucumber_1.When('User types {string}', function (test) {
-    //let ss: HomePage = new HomePage();
-    // let ss: HomePage = new HomePage();
-    // console.log(Reflect.has(HomePage, "searchTextBox"));
-    // ss.searchTextBox.sendKeys(test);
     loki();
 });
 function loki() {
@@ -70,3 +66,4 @@ function loki() {
         });
     });
 }
+//# sourceMappingURL=UniversalStep.js.map

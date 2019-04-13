@@ -27,3 +27,4 @@ exports.config = {
         protractor_1.browser.ignoreSynchronization = true;
     }
 };
+//# sourceMappingURL=protractor.conf.js.map

@@ -6,3 +6,4 @@ var BasePage = /** @class */ (function () {
     return BasePage;
 }());
 exports.BasePage = BasePage;
+//# sourceMappingURL=BasePage.js.map

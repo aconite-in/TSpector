@@ -10,10 +10,6 @@ Given('I go to {string}', function (test: string) {
 });
 
 When('User types {string}', function (test: string) {
-    //let ss: HomePage = new HomePage();
-    // let ss: HomePage = new HomePage();
-    // console.log(Reflect.has(HomePage, "searchTextBox"));
-    // ss.searchTextBox.sendKeys(test);
     loki();
 });
 
