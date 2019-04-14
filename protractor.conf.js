@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var protractor_1 = require("protractor");
+const protractor_1 = require("protractor");
 exports.config = {
     seleniumAddress: 'http://127.0.0.1:4444/wd/hub',
     directConnect: true,
@@ -16,7 +16,7 @@ exports.config = {
     specs: [
         'Features/**/*.feature'
     ],
-    baseURL: 'https://www.phptravels.net/',
+    baseURL: 'https://www.google.com/',
     cucumberOpts: {
         require: 'Steps/UniversalStep.js',
         tags: false,

@@ -1,9 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var BasePage = /** @class */ (function () {
-    function BasePage() {
+class BasePage {
+    constructor(pageURL, xPathValidator) {
+        this.pageURL = pageURL;
+        this.xPathValidator = xPathValidator;
     }
-    return BasePage;
-}());
+}
 exports.BasePage = BasePage;
 //# sourceMappingURL=BasePage.js.map

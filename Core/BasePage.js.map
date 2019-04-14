@@ -1,1 +1,1 @@
-{"version":3,"file":"BasePage.js","sourceRoot":"","sources":["BasePage.ts"],"names":[],"mappings":";;AACA;IAAA;IACA,CAAC;IAAD,eAAC;AAAD,CAAC,AADD,IACC;AADY,4BAAQ"}
+{"version":3,"file":"BasePage.js","sourceRoot":"","sources":["BasePage.ts"],"names":[],"mappings":";;AACA,MAAsB,QAAQ;IAK1B,YAAY,OAAe,EAAE,cAAsB;QAC/C,IAAI,CAAC,OAAO,GAAG,OAAO,CAAC;QACvB,IAAI,CAAC,cAAc,GAAG,cAAc,CAAC;IACzC,CAAC;CAGJ;AAXD,4BAWC"}

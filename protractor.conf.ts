@@ -17,7 +17,7 @@ export const config: Config = {
         'Features/**/*.feature'
     ],
 
-    baseURL: 'https://www.phptravels.net/',
+    baseURL: 'https://www.google.com/',
 
     cucumberOpts: {
         require: 'Steps/UniversalStep.js',
