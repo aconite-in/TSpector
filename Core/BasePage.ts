@@ -1,3 +1,4 @@
+import { element, by } from "protractor";
 
 export abstract class BasePage {
 
@@ -10,4 +11,8 @@ export abstract class BasePage {
     }
 
     abstract navigateTo(): void;
+
+    async isOpen(){
+        await console.log("sapadla");
+    }
 }

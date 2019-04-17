@@ -1,6 +1,6 @@
 import { by, element, ElementFinder } from "protractor";
 
-export class TextBox {
+export class Button {
 
     private locatorValue: string
 
@@ -12,8 +12,7 @@ export class TextBox {
         this.locatorValue = locatorValue;
     }
 
-    public async type(inputText: string) {
-        await this.get().sendKeys(inputText)
-        console.log(inputText);
+    public async click() {
+        await this.get().click();
     }
 }

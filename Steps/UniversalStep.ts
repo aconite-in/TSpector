@@ -1,5 +1,6 @@
 import { Given, When, Then } from "cucumber";
-import { BasePage } from "../Core/BasePage";
+var {setDefaultTimeout} = require('cucumber');
+setDefaultTimeout(120 * 1000);
 
 async function InvokeMethod(pageName: string, method: string, args: string[]) {
     //Dynamically Import the Page from pages folder
@@ -7,7 +8,7 @@ async function InvokeMethod(pageName: string, method: string, args: string[]) {
     //Create a Object of Page 
     const PageObject = Reflect.construct(Reflect.get(PageClass, pageName), []);
     // Invoke the method
-    Reflect.apply(Reflect.get(PageObject, method), PageObject, args);
+    return Reflect.apply(Reflect.get(PageObject, method), PageObject, args);
 }
 
 async function InvokeElementMethod(pageName: string, element: string, action: string, args: string[]) {
@@ -18,18 +19,21 @@ async function InvokeElementMethod(pageName: string, element: string, action: st
     // getWebElement
     const ElementObject = Reflect.get(PageObject, element);
     // Invoke the method
-    Reflect.apply(Reflect.get(ElementObject, action), ElementObject, args);
+    await Reflect.apply(Reflect.get(ElementObject, action), ElementObject, args);
 }
 
-Given('User is on {string}', function (pageName: string) {
-    InvokeMethod(pageName, "navigateTo", []);
+Given('User is on {string}',  async (pageName: string) => {
+    await InvokeMethod(pageName, "navigateTo", [])
 });
 
-Given('I go to {string}', function (test: string) {
-    console.log("ss");
+When('User types {string} in {string} on {string}', async (inputText: string, elementObject: string, pageName: string) => {
+    await InvokeElementMethod(pageName, elementObject, "type", [inputText]);
 });
 
-When('User types {string} in {string} on {string}', function (inputText: string, elementObject: string, pageName: string) {
-    InvokeElementMethod(pageName, elementObject, "type", [inputText]);
+When('User clicks {string} on {string}', async (elementObject: string, pageName: string) => {
+    await InvokeElementMethod(pageName, elementObject, "click", []);
 });
 
+Then('Validate that user is on {string}', async (pageName: string) => {
+    await InvokeMethod(pageName, "isOpen", [])
+});

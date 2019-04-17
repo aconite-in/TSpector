@@ -1,17 +1,21 @@
-import { $, ElementFinder, browser } from "protractor"
+import { browser} from "protractor"
 import { BasePage } from "../Core/BasePage";
 import { TextBox } from "../Core/WebElements/TextBox";
+import { Button } from "../Core/WebElements/Button";
 
 export class HomePage extends BasePage {
-    public searchTextBox: TextBox = new TextBox("usernamelabel");
-    public ss: string;
+
+    public UserName: TextBox = new TextBox("_Input");
+    public Password: TextBox = new TextBox("main_PasswordTextBox");
+    public proceed: Button = new Button("main_LoginButton");
+
 
     constructor() {
-        super("https://spdissues.fnis.com/secure/Dashboard.jspa", "llo");
-        this.ss = "I am in homePage";
+        super("https://d1.fisintegratedpayables.com/fis/customerlogin.aspx", "llo");
+        
     }
 
     navigateTo(): void {
-        browser.navigate().to(this.pageURL);
+        browser.get(this.pageURL)
     }
 }

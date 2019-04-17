@@ -3,14 +3,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const protractor_1 = require("protractor");
 const BasePage_1 = require("../Core/BasePage");
 const TextBox_1 = require("../Core/WebElements/TextBox");
+const Button_1 = require("../Core/WebElements/Button");
 class HomePage extends BasePage_1.BasePage {
     constructor() {
-        super("https://spdissues.fnis.com/secure/Dashboard.jspa", "llo");
-        this.searchTextBox = new TextBox_1.TextBox("usernamelabel");
-        this.ss = "I am in homePage";
+        super("https://d1.fisintegratedpayables.com/fis/customerlogin.aspx", "llo");
+        this.UserName = new TextBox_1.TextBox("_Input");
+        this.Password = new TextBox_1.TextBox("main_PasswordTextBox");
+        this.proceed = new Button_1.Button("main_LoginButton");
     }
     navigateTo() {
-        protractor_1.browser.navigate().to(this.pageURL);
+        protractor_1.browser.get(this.pageURL);
     }
 }
 exports.HomePage = HomePage;

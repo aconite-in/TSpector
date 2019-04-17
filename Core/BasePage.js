@@ -5,6 +5,9 @@ class BasePage {
         this.pageURL = pageURL;
         this.xPathValidator = xPathValidator;
     }
+    async isOpen() {
+        await console.log("sapadla");
+    }
 }
 exports.BasePage = BasePage;
 //# sourceMappingURL=BasePage.js.map
