@@ -2,10 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const protractor_1 = require("protractor");
 const BasePage_1 = require("../Core/BasePage");
+const TextBox_1 = require("../Core/WebElements/TextBox");
 class HomePage extends BasePage_1.BasePage {
     constructor() {
-        super("https://www.google.com/", "llo");
-        this.searchTextBox = protractor_1.$("#tsf > div:nth-child(2) > div > div.RNNXgb > div > div.a4bIc > input");
+        super("https://spdissues.fnis.com/secure/Dashboard.jspa", "llo");
+        this.searchTextBox = new TextBox_1.TextBox("usernamelabel");
         this.ss = "I am in homePage";
     }
     navigateTo() {

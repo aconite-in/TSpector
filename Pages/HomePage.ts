@@ -1,13 +1,13 @@
 import { $, ElementFinder, browser } from "protractor"
 import { BasePage } from "../Core/BasePage";
+import { TextBox } from "../Core/WebElements/TextBox";
 
 export class HomePage extends BasePage {
-    public searchTextBox: ElementFinder;
+    public searchTextBox: TextBox = new TextBox("usernamelabel");
     public ss: string;
 
     constructor() {
-        super("https://www.google.com/", "llo");
-        this.searchTextBox = $("#tsf > div:nth-child(2) > div > div.RNNXgb > div > div.a4bIc > input");
+        super("https://spdissues.fnis.com/secure/Dashboard.jspa", "llo");
         this.ss = "I am in homePage";
     }
 
