@@ -40,4 +40,7 @@ cucumber_1.When('User clicks {string} on {string}', async (elementObject, pageNa
 cucumber_1.Then('Validate that user is on {string}', async (pageName) => {
     await InvokeMethod(pageName, "isOpen", []);
 });
+cucumber_1.Then('Validate that {string} has inner text {string} on {string}', async (elementObject, innerText, pageName) => {
+    await InvokeElementMethod(pageName, elementObject, "validateInnerText", [innerText]);
+});
 //# sourceMappingURL=UniversalStep.js.map

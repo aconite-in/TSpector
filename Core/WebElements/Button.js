@@ -1,13 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const protractor_1 = require("protractor");
-class Button {
-    get() {
-        return protractor_1.element(protractor_1.by.id(this.locatorValue));
-    }
-    constructor(locatorValue) {
-        this.locatorValue = locatorValue;
-    }
+const BaseElement_1 = require("./BaseElement");
+class Button extends BaseElement_1.BaseElement {
     async click() {
         await this.get().click();
     }

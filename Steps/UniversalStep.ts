@@ -1,5 +1,5 @@
 import { Given, When, Then } from "cucumber";
-var {setDefaultTimeout} = require('cucumber');
+var { setDefaultTimeout } = require('cucumber');
 setDefaultTimeout(120 * 1000);
 
 async function InvokeMethod(pageName: string, method: string, args: string[]) {
@@ -22,7 +22,7 @@ async function InvokeElementMethod(pageName: string, element: string, action: st
     await Reflect.apply(Reflect.get(ElementObject, action), ElementObject, args);
 }
 
-Given('User is on {string}',  async (pageName: string) => {
+Given('User is on {string}', async (pageName: string) => {
     await InvokeMethod(pageName, "navigateTo", [])
 });
 
@@ -36,4 +36,9 @@ When('User clicks {string} on {string}', async (elementObject: string, pageName:
 
 Then('Validate that user is on {string}', async (pageName: string) => {
     await InvokeMethod(pageName, "isOpen", [])
+});
+
+
+Then('Validate that {string} has inner text {string} on {string}', async (elementObject: string, innerText: string, pageName: string) => {
+    await InvokeElementMethod(pageName, elementObject, "validateInnerText", [innerText]);
 });

@@ -6,7 +6,6 @@ class BasePage {
         this.xPathValidator = xPathValidator;
     }
     async isOpen() {
-        await console.log("sapadla");
     }
 }
 exports.BasePage = BasePage;

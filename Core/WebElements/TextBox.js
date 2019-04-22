@@ -1,16 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const protractor_1 = require("protractor");
-class TextBox {
-    get() {
-        return protractor_1.element(protractor_1.by.id(this.locatorValue));
-    }
-    constructor(locatorValue) {
-        this.locatorValue = locatorValue;
-    }
+const BaseElement_1 = require("./BaseElement");
+class TextBox extends BaseElement_1.BaseElement {
     async type(inputText) {
         await this.get().sendKeys(inputText);
-        console.log(inputText);
     }
 }
 exports.TextBox = TextBox;
