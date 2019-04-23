@@ -6,6 +6,7 @@
     "cucumberautocomplete.strictGherkinCompletion": true,
     "files.exclude": {
         "**/.git": true,
+        ".gitignore": true,
         "**/package-lock.json": true,
         "**/package.json": true,
         "**/*.js": true,
