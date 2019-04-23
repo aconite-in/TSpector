@@ -6,13 +6,13 @@ import { Label } from "../Core/WebElements/Label";
 
 export class HomePage extends BasePage {
 
-    public UserName: TextBox = new TextBox("id", "_Input");
-    public Password: TextBox = new TextBox("id", "main_PasswordTextBox");
-    public proceedButton: Button = new Button("id", "main_LoginButton");
+    public UserName: TextBox = new TextBox("id", "usr");
+    public Password: TextBox = new TextBox("id", "pwd");
+    public proceedButton: Button = new Button("css", "#case_login > form > input[type='submit']:nth-child(5)");
     public ErrorLabel: Label = new Label("id", "LoginError");
 
     constructor() {
-        super("https://d1.fisintegratedpayables.com/fis/customerlogin.aspx", "llo");
+        super("http://testing-ground.scraping.pro/login", "llo");
     }
 
     navigateTo(): void {
