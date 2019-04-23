@@ -40,4 +40,8 @@ export class BaseElement {
         let innertext: string = await this.get().getText();
         assert.equal(innertext, validationText);
     }
+
+    public async isDisplayed() {
+        return await this.get().isDisplayed();
+    }
 }

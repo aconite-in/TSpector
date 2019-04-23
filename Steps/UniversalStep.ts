@@ -41,6 +41,7 @@ When('User clicks {string}', async (elementObject: string) => {
 
 Then('Validate that user is on {string}', async (pageName: string) => {
     await InvokeMethod(pageName, "isOpen", [])
+    currentPageName = pageName;
 });
 
 Then('Validate that {string} has inner text {string}', async (elementObject: string, innerText: string) => {
