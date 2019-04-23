@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@types/chai": "^4.1.7",
     "@types/cucumber": "^4.0.5",
     "@types/node": "^11.13.4",
     "@types/protractor": "^4.0.0",
+    "chai": "^4.2.0",
     "cucumber": "^5.1.0",
     "protractor": "^5.4.2"
   },
