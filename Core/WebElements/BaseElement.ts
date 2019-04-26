@@ -1,12 +1,14 @@
 import { ElementFinder, element, by } from "protractor";
 import { assert } from "chai"
+import { Logger, LogLevel } from "../DataAccess/Logger";
 
 export class BaseElement {
 
-    private locatorValue: string
-    private locatorType: string
+    protected locatorValue: string
+    protected locatorType: string
 
     public get(): ElementFinder {
+        Logger.log(LogLevel.INFO, `BaseElement: Starting to find element by locator ${this.locatorType} with value ${this.locatorValue}`)
         switch (this.locatorType.toLocaleLowerCase()) {
             case "css":
                 return element(by.css(this.locatorValue));
@@ -38,7 +40,10 @@ export class BaseElement {
 
     public async validateInnerText(validationText: string) {
         let innertext: string = await this.get().getText();
-        assert.equal(innertext, validationText);
+        if (innertext != validationText)
+            Logger.log(LogLevel.ERROR, innertext + " did not match with  " + validationText)
+        else
+            Logger.log(LogLevel.INFO, innertext + " did matched with  " + validationText)
     }
 
     public async isDisplayed() {
