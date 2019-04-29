@@ -1,4 +1,5 @@
-import { Given, When, Then } from "cucumber";
+import { Given, When, Then, Before, Scenario, HookCode, HookScenarioResult } from "cucumber";
+import { Logger, LogLevel } from "../Core/DataAccess/Logger";
 var { setDefaultTimeout } = require('cucumber');
 setDefaultTimeout(120 * 1000);
 
@@ -6,8 +7,10 @@ let currentPageName: string;
 
 async function InvokeMethod(pageName: string, method: string, args: string[]) {
     //When User navigate to that page, make it current page
-    if (method == "navigateTo")
+    if (method == "navigateTo") {
         currentPageName = pageName;
+        Logger.log(LogLevel.INFO, `UniversalStep: Changing current page to ${pageName}`)
+    }
     //Dynamically Import the Page from pages folder
     const PageClass = await import("../Pages/" + pageName);
     //Create a Object of Page 
@@ -27,15 +30,27 @@ async function InvokeElementMethod(element: string, action: string, args: string
     await Reflect.apply(Reflect.get(ElementObject, action), ElementObject, args);
 }
 
+Before((scenario: HookScenarioResult) => {
+    Logger.logSubHeading(`Scenario: ${scenario.pickle.name}`)
+})
+
 Given('User is on {string}', async (pageName: string) => {
+    Logger.log(LogLevel.INFO, `UniversalStep: User is on ${pageName}`)
     await InvokeMethod(pageName, "navigateTo", [])
 });
 
 When('User types {string} in {string}', async (inputText: string, elementObject: string) => {
+    Logger.log(LogLevel.INFO, `UniversalStep: User types ${inputText} in ${elementObject}`)
     await InvokeElementMethod(elementObject, "type", [inputText]);
 });
 
+When('User selects {string} from {string}', async (inputText: string, elementObject: string) => {
+    Logger.log(LogLevel.INFO, `UniversalStep: User selects ${inputText} from ${elementObject}`)
+    await InvokeElementMethod(elementObject, "selectByText", [inputText]);
+});
+
 When('User clicks {string}', async (elementObject: string) => {
+    Logger.log(LogLevel.INFO, `UniversalStep: User clicks  ${elementObject}`)
     await InvokeElementMethod(elementObject, "click", []);
 });
 

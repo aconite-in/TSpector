@@ -1,4 +1,5 @@
 import { browser, Config } from "protractor"
+import { Logger } from "./Core/DataAccess/Logger";
 
 export const config: Config = {
     directConnect: true,
@@ -21,7 +22,7 @@ export const config: Config = {
     baseURL: 'https://d1.fisintegratedpayables.com/fis/customerlogin.aspx',
 
     cucumberOpts: {
-        require: 'Steps/UniversalStep.js',
+        require: 'Steps/*.js',
         tags: false,
         profile: false,
         'no-source': true,
@@ -29,5 +30,6 @@ export const config: Config = {
     onPrepare: function () {
         browser.ignoreSynchronization = true;
         browser.driver.manage().window().maximize();
+        Logger.init();
     }
 };
