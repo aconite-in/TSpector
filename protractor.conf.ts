@@ -11,7 +11,7 @@ export const config: Config = {
     capabilities: {
         'browserName': 'chrome'
     },
-    //chromeDriver: 'C:/Users/E5555287/Abhishek/chromedriver_win32/chromedriver.exe',
+    chromeDriver: 'C:/Users/E5555287/Downloads/chromedriver/chromedriver.exe',
 
     // Spec patterns are relative to this directory.
     specs: [
