@@ -1,28 +1,39 @@
 import { BaseElement } from "./BaseElement";
-import { $, $$ } from "protractor";
+import { $, element, by, ElementFinder } from "protractor";
+import { Logger, LogLevel } from "../DataAccess/Logger";
 
 
 export class HtmlTable extends BaseElement {
 
+    private PreviousButtonCSS?: string;
+    private NextButtonCSS?: string;
 
-    private PreviousButtonCSS: string;
-
-    constructor(PreviousButtonCSS: string) {
-        super("id", "test");
+    constructor(locatorType: string, locatorValue: string, NextButtonCSS?: string, PreviousButtonCSS?: string) {
+        super(locatorType, locatorValue);
         this.PreviousButtonCSS = PreviousButtonCSS;
+        this.NextButtonCSS = NextButtonCSS;
     }
 
-    public clickByText(CellFieldToClick: string) {
-        var previousButton = $(this.PreviousButtonCSS);
-        previousButton.getAttribute('disabled').then(function (attribute) {
-            if (attribute) {
-                console.log('At the first page of the table');
-                return;
+    public async clickByText(cellTagClick: string, cellText: string) {
+        let cell: ElementFinder = await element(by.xpath(`//${cellTagClick}[text()="${cellText}"]`))
+        await cell.isPresent().then(async (isPresent) => {
+            if (isPresent) {
+                await cell.click();
             }
-        }, function (err) { console.log('Error when finding the back button', err) }).then(function () {
-            //console.log("Start to find matching data " + CellFieldToClick + " in web element " + CellFieldName);
-            //recursiveSearchForIndex(CellFieldName, NextButtonCSS, texttovalidate, Validationstatus);
-        });
+            else if (this.NextButtonCSS !== undefined) {
+                var nextButton: ElementFinder = await $(this.NextButtonCSS);
+                await nextButton.getAttribute('disabled').then((attribute) => {
+                    if (attribute) {    //if the next button is disabled, stop recursion
+                        Logger.log(LogLevel.ERROR, 'Reached the last page of the table');
+                    }
+                    else {
+                        nextButton.click();
+                    }
+                })
+                await this.clickByText(cellTagClick, cellText);
+            }
+            else
+                Logger.log(LogLevel.ERROR, 'Unable to find the element');
+        })
     }
-
 }

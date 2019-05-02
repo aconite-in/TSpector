@@ -49,6 +49,11 @@ When('User selects {string} from {string}', async (inputText: string, elementObj
     await InvokeElementMethod(elementObject, "selectByText", [inputText]);
 });
 
+When('User clicks cell {string} in {string}', async (inputText: string, elementObject: string) => {
+    Logger.log(LogLevel.INFO, `UniversalStep: User clicks cell  ${inputText} in ${elementObject}`)
+    await InvokeElementMethod(elementObject, "clickByText", ['a',inputText]);
+});
+
 When('User clicks {string}', async (elementObject: string) => {
     Logger.log(LogLevel.INFO, `UniversalStep: User clicks  ${elementObject}`)
     await InvokeElementMethod(elementObject, "click", []);

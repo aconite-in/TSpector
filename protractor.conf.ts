@@ -3,7 +3,7 @@ import { Logger } from "./Core/DataAccess/Logger";
 
 export const config: Config = {
     directConnect: true,
-    SELENIUM_PROMISE_MANAGER: false,
+    SELENIUM_PROMISE_MANAGER: true,
     getPageTimeout: 100000,
     allScriptsTimeout: 500000,
     framework: 'custom',
