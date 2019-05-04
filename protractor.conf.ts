@@ -28,8 +28,8 @@ export const config: Config = {
         'no-source': true,
     },
     onPrepare: function () {
-        browser.ignoreSynchronization = true;
         browser.driver.manage().window().maximize();
+        browser.ignoreSynchronization = true;
         Logger.init();
     }
 };

@@ -3,7 +3,6 @@ import { BasePage } from "../Core/BasePage";
 import { TextBox } from "../Core/WebElements/TextBox";
 import { Button } from "../Core/WebElements/Button";
 import { Label } from "../Core/WebElements/Label";
-import { ComboBox } from "../Core/WebElements/ComboBox";
 
 export class LoginPage extends BasePage {
 
@@ -14,9 +13,10 @@ export class LoginPage extends BasePage {
 
     constructor() {
         super("https://d1.fisintegratedpayables.com/fis/login.aspx?ReturnUrl=%2ffis%2fCustomer%2fUserAdministration.aspx", "llo");
+        //super("http://idp-apex-ui-dev.sdlocpapp.fisdev.local/IdPRI-4.15.0/apexdev/", "")
     }
 
     navigateTo(): void {
         browser.get(this.pageURL)
-    }   
+    }
 }

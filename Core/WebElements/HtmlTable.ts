@@ -7,11 +7,13 @@ export class HtmlTable extends BaseElement {
 
     private PreviousButtonCSS?: string;
     private NextButtonCSS?: string;
+    private NextButtonDisabledAttribute: string;
 
-    constructor(locatorType: string, locatorValue: string, NextButtonCSS?: string, PreviousButtonCSS?: string) {
+    constructor(locatorType: string, locatorValue: string, NextButtonCSS?: string, PreviousButtonCSS?: string, NextButtonDiabledAttribute?: string) {
         super(locatorType, locatorValue);
         this.PreviousButtonCSS = PreviousButtonCSS;
         this.NextButtonCSS = NextButtonCSS;
+        this.NextButtonDisabledAttribute = (NextButtonDiabledAttribute) ? NextButtonDiabledAttribute : "disabled";
     }
 
     public async clickByText(cellTagClick: string, cellText: string) {
@@ -22,7 +24,7 @@ export class HtmlTable extends BaseElement {
             }
             else if (this.NextButtonCSS !== undefined) {
                 var nextButton: ElementFinder = await $(this.NextButtonCSS);
-                await nextButton.getAttribute('disabled').then((attribute) => {
+                await nextButton.getAttribute(this.NextButtonDisabledAttribute).then((attribute) => {
                     if (attribute) {    //if the next button is disabled, stop recursion
                         Logger.log(LogLevel.ERROR, 'Reached the last page of the table');
                     }
