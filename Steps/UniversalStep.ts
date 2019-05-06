@@ -1,5 +1,6 @@
 import { Given, When, Then, Before, Scenario, HookCode, HookScenarioResult } from "cucumber";
 import { Logger, LogLevel } from "../Core/DataAccess/Logger";
+import { SQLHelper } from "../Core/DataAccess/SQLHelper";
 var { setDefaultTimeout } = require('cucumber');
 setDefaultTimeout(120 * 1000);
 
@@ -51,12 +52,17 @@ When('User selects {string} from {string}', async (inputText: string, elementObj
 
 When('User clicks cell {string} in {string}', async (inputText: string, elementObject: string) => {
     Logger.log(LogLevel.INFO, `UniversalStep: User clicks cell  ${inputText} in ${elementObject}`)
-    await InvokeElementMethod(elementObject, "clickByText", ['a',inputText]);
+    await InvokeElementMethod(elementObject, "clickByText", ['a', inputText]);
 });
 
 When('User clicks {string}', async (elementObject: string) => {
     Logger.log(LogLevel.INFO, `UniversalStep: User clicks  ${elementObject}`)
     await InvokeElementMethod(elementObject, "click", []);
+});
+
+When('User executes query {string} and store result in key {string}', async (inputText: string, elementObject: string) => {
+    Logger.log(LogLevel.INFO, `UniversalStep: User executes query  ${inputText}  and store result in key ${elementObject}`)
+    await SQLHelper.query();
 });
 
 Then('Validate that user is on {string}', async (pageName: string) => {

@@ -10,6 +10,7 @@
     "@types/protractor": "^4.0.0",
     "chai": "^4.2.0",
     "cucumber": "^5.1.0",
+    "mssql": "^5.1.0",
     "protractor": "^5.4.2"
   },
   "devDependencies": {

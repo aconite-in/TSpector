@@ -17,25 +17,31 @@ export class HtmlTable extends BaseElement {
     }
 
     public async clickByText(cellTagClick: string, cellText: string) {
-        let cell: ElementFinder = await element(by.xpath(`//${cellTagClick}[text()="${cellText}"]`))
-        await cell.isPresent().then(async (isPresent) => {
-            if (isPresent) {
-                await cell.click();
-            }
-            else if (this.NextButtonCSS !== undefined) {
-                var nextButton: ElementFinder = await $(this.NextButtonCSS);
-                await nextButton.getAttribute(this.NextButtonDisabledAttribute).then((attribute) => {
-                    if (attribute) {    //if the next button is disabled, stop recursion
-                        Logger.log(LogLevel.ERROR, 'Reached the last page of the table');
+        let table = await this.get();
+        await table.isPresent().then(async (tablePresent) => {
+            if (tablePresent) {
+                let cell: ElementFinder = await table.element(by.xpath(`//${cellTagClick}[text()="${cellText}"]`))
+                await cell.isPresent().then(async (isPresent) => {
+                    if (isPresent) {
+                        await cell.click();
                     }
-                    else {
-                        nextButton.click();
+                    else if (this.NextButtonCSS !== undefined) {
+                        var nextButton: ElementFinder = await $(this.NextButtonCSS);
+                        await nextButton.getAttribute(this.NextButtonDisabledAttribute).then((attribute) => {
+                            if (attribute) {    //if the next button is disabled, stop recursion
+                                Logger.log(LogLevel.ERROR, 'Reached the last page of the table');
+                            }
+                            else {
+                                nextButton.click();
+                            }
+                        })
+                        await this.clickByText(cellTagClick, cellText);
                     }
+                    else
+                        Logger.log(LogLevel.ERROR, 'Unable to find the element');
                 })
-                await this.clickByText(cellTagClick, cellText);
-            }
-            else
-                Logger.log(LogLevel.ERROR, 'Unable to find the element');
+            } else
+                Logger.log(LogLevel.ERROR, `Unable to find table with ${this.locatorType} = ${this.locatorValue}`);
         })
     }
 }
