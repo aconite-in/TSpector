@@ -34,7 +34,7 @@ export class HtmlTable extends BaseElement {
                             else {
                                 nextButton.click();
                             }
-                        })
+                        }) 
                         await this.clickByText(cellTagClick, cellText);
                     }
                     else

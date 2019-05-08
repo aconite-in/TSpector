@@ -46,6 +46,14 @@ export class BaseElement {
             Logger.log(LogLevel.INFO, innertext + " did matched with  " + validationText)
     }
 
+    public async getDisplayedText() {
+        await this.get().getText().then((displayedTxt) => {
+            return displayedTxt;
+        }).catch(() => {
+            Logger.log(LogLevel.ERROR, "Unable to find")
+        });
+    }
+
     public async isDisplayed() {
         return await this.get().isDisplayed();
     }

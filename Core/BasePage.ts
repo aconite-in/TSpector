@@ -13,6 +13,8 @@ export abstract class BasePage {
     abstract navigateTo(): void;
 
     async isOpen() {
-        return await this.xPathValidator.isDisplayed();
+        await this.xPathValidator.isDisplayed()
+            .then((isDisplayed) => { return isDisplayed; })
+            .catch(() => { return false; })
     }
 }
