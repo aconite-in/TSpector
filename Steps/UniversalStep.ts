@@ -20,7 +20,7 @@ async function InvokeMethod(pageName: string, method: string, args: string[]) {
     Reflect.apply(Reflect.get(PageObject, method), PageObject, args);
 }
 
-async function InvokeElementMethod(element: string, action: string, args: string[]) {
+async function InvokeElementMethod(element: string, action: string, args: any[]) {
     //Dynamically Import the Page from pages folder
     const PageClass = await import("../Pages/" + currentPageName);
     //Create a Object of Page 
@@ -28,7 +28,7 @@ async function InvokeElementMethod(element: string, action: string, args: string
     // getWebElement
     const ElementObject = Reflect.get(PageObject, element);
     // Invoke the method
-    await Reflect.apply(Reflect.get(ElementObject, action), ElementObject, args);
+    return await Reflect.apply(Reflect.get(ElementObject, action), ElementObject, args);
 }
 
 Before((scenario: HookScenarioResult) => {
