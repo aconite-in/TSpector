@@ -71,6 +71,7 @@ When('User executes query {string} and store result in key {string}', async (inp
 });
 
 Then('Validate that user is on {string}', async (pageName: string) => {
+    Logger.log(LogLevel.INFO, `UniversalStep: Validate that user is on ${pageName}`)
     await InvokeMethod(pageName, "isOpen", [])
     currentPageName = pageName;
 });
