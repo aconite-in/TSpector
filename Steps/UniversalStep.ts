@@ -29,18 +29,9 @@ async function InvokeElementMethod(element: string, action: string, args: any[])
     // getWebElement
     const ElementObject = Reflect.get(PageObject, element);
     //Replace Keys from cache if any
-    args = await replaceKeysFromCache(args);
+    args = await args.map(e => typeof e === 'string' && e.startsWith('#{') && e.endsWith("}") ? e = cacheManger.get(e) : e)
     // Invoke the method
     return await Reflect.apply(Reflect.get(ElementObject, action), ElementObject, args);
-}
-
-async function replaceKeysFromCache(args: any[]) {
-    await args.forEach((e, i) => {
-        if (typeof e === 'string')
-            if (e.startsWith('#{') && e.endsWith("}"))
-                args[i] = cacheManger.get(e);
-    })
-    return args;
 }
 
 Before((scenario: HookScenarioResult) => {
