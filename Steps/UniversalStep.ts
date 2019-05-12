@@ -1,4 +1,4 @@
-import { Given, When, Then, Before, Scenario, HookCode, HookScenarioResult } from "cucumber";
+import { Given, When, Then, Before, HookScenarioResult } from "cucumber";
 import { Logger, LogLevel } from "../Core/DataAccess/Logger";
 import { SQLHelper } from "../Core/DataAccess/SQLHelper";
 var { setDefaultTimeout } = require('cucumber');
