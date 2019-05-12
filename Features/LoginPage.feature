@@ -8,7 +8,7 @@ Feature: Running Cucumber with Protractor
         When User clicks "ProceedBtn"
         When User types "Muthu@201" in "Password"
         When User clicks "ProceedBtn"
-        When User clicks "ConcurrentLoginYesBtn" if present
+        When User click "ConcurrentLoginYesBtn" if present
         Then Validate that user is on "HomePage"
         When User clicks "LogoutLink"
         Then Validate that user is on "LoginPage"
