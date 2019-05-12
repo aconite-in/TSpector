@@ -5,6 +5,7 @@ var { setDefaultTimeout } = require('cucumber');
 setDefaultTimeout(120 * 1000);
 
 let currentPageName: string;
+const cacheManger = new Map<string, string>();
 
 async function InvokeMethod(pageName: string, method: string, args: string[]) {
     //When User navigate to that page, make it current page
@@ -27,8 +28,19 @@ async function InvokeElementMethod(element: string, action: string, args: any[])
     const PageObject = Reflect.construct(Reflect.get(PageClass, currentPageName), []);
     // getWebElement
     const ElementObject = Reflect.get(PageObject, element);
+    //Replace Keys from cache if any
+    args = await replaceKeysFromCache(args);
     // Invoke the method
     return await Reflect.apply(Reflect.get(ElementObject, action), ElementObject, args);
+}
+
+async function replaceKeysFromCache(args: any[]) {
+    await args.forEach((e, i) => {
+        if (typeof e === 'string')
+            if (e.startsWith('#{') && e.endsWith("}"))
+                args[i] = cacheManger.get(e);
+    })
+    return args;
 }
 
 Before((scenario: HookScenarioResult) => {
@@ -68,6 +80,13 @@ When('User click {string} if present', async (elementObject: string) => {
 When('User executes query {string} and store result in key {string}', async (inputText: string, elementObject: string) => {
     Logger.log(LogLevel.INFO, `UniversalStep: User executes query  ${inputText}  and store result in key ${elementObject}`)
     await SQLHelper.query();
+});
+
+When('User captures text from {string} as key {string}', async (elementObject: string, key: string) => {
+    Logger.log(LogLevel.INFO, `UniversalStep: User captures text from ${elementObject} as key ${key}`)
+    let displayedTxt = await InvokeElementMethod(elementObject, "getDisplayedText", []);
+    Logger.log(LogLevel.INFO, `UniversalStep: User captured text from "${elementObject}" as key "${key}":\n\t + ${displayedTxt}`)
+    cacheManger.set(`#{${key}}`, displayedTxt);
 });
 
 Then('Validate that user is on {string}', async (pageName: string) => {
