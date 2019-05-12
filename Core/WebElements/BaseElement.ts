@@ -7,6 +7,11 @@ export class BaseElement {
     protected locatorValue: string
     protected locatorType: string
 
+    constructor(locatorType: string, locatorValue: string) {
+        this.locatorValue = locatorValue;
+        this.locatorType = locatorType;
+    }
+
     public get(): ElementFinder {
         switch (this.locatorType.toLocaleLowerCase()) {
             case "css":
@@ -32,11 +37,6 @@ export class BaseElement {
         }
     }
 
-    constructor(locatorType: string, locatorValue: string) {
-        this.locatorValue = locatorValue;
-        this.locatorType = locatorType;
-    }
-
     public async validateInnerText(validationText: string) {
         let innertext: string = await this.get().getText();
         if (innertext != validationText)
@@ -46,7 +46,7 @@ export class BaseElement {
     }
 
     public async getDisplayedText() {
-        await this.get().getText().then((displayedTxt) => {
+        return await this.get().getText().then((displayedTxt) => {
             return displayedTxt;
         }).catch(() => {
             Logger.log(LogLevel.ERROR, "Unable to find")
