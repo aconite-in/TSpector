@@ -11,8 +11,8 @@ export class LinkLabel extends BaseElement {
             var elm = await this.get();
             await browser.wait(async () => { return await EC.elementToBeClickable(elm); }, 10000).then(async () => {
                 await elm.click();
-                Logger.log(LogLevel.INFO, "Click on " + this.locatorValue);
-            }, (err) => { Logger.log(LogLevel.ERROR, "Click on " + this.locatorValue + " failed") }); //throw new Error('Error occurred!'); this will fail the whole script
-        }, (err) => { Logger.log(LogLevel.ERROR, "Click on " + this.locatorValue + " failed") });
+                Logger.log(LogLevel.INFO, `LinkLabel: Clicked label with ${this.locatorType} =  ${this.locatorValue}`);
+            }, (err) => { Logger.log(LogLevel.ERROR, `LinkLabel: Failed to click label with ${this.locatorType} =  ${this.locatorValue}`) });
+        }, (err) => { Logger.log(LogLevel.ERROR, `LinkLabel: Failed to click label with ${this.locatorType} =  ${this.locatorValue}`) });
     }
 }
