@@ -60,6 +60,11 @@ When('User clicks {string}', async (elementObject: string) => {
     await InvokeElementMethod(elementObject, "click", []);
 });
 
+When('User clicks {string} if present', async (elementObject: string) => {
+    Logger.log(LogLevel.INFO, `UniversalStep: User clicks ${elementObject} if present`)
+    await InvokeElementMethod(elementObject, "click", [false]);
+});
+
 When('User executes query {string} and store result in key {string}', async (inputText: string, elementObject: string) => {
     Logger.log(LogLevel.INFO, `UniversalStep: User executes query  ${inputText}  and store result in key ${elementObject}`)
     await SQLHelper.query();
