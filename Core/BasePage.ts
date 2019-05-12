@@ -1,4 +1,5 @@
 import { BaseElement } from "./WebElements/BaseElement";
+import { browser } from "protractor";
 
 export abstract class BasePage {
 
@@ -13,7 +14,7 @@ export abstract class BasePage {
     abstract navigateTo(): void;
 
     async isOpen() {
-        await this.xPathValidator.isDisplayed()
+        await browser.wait(async () => { return await this.xPathValidator.isDisplayed() })
             .then((isDisplayed) => { return isDisplayed; })
             .catch(() => { return false; })
     }
