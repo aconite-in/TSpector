@@ -17,7 +17,7 @@ async function InvokeMethod(pageName: string, method: string, args: string[]) {
     //Create a Object of Page 
     const PageObject = Reflect.construct(Reflect.get(PageClass, pageName), []);
     // Invoke the method
-    Reflect.apply(Reflect.get(PageObject, method), PageObject, args);
+    return await Reflect.apply(Reflect.get(PageObject, method), PageObject, args);
 }
 
 async function InvokeElementMethod(element: string, action: string, args: any[]) {
@@ -60,7 +60,7 @@ When('User clicks {string}', async (elementObject: string) => {
     await InvokeElementMethod(elementObject, "click", []);
 });
 
-When('User clicks {string} if present', async (elementObject: string) => {
+When('User click {string} if present', async (elementObject: string) => {
     Logger.log(LogLevel.INFO, `UniversalStep: User clicks ${elementObject} if present`)
     await InvokeElementMethod(elementObject, "click", [false]);
 });
@@ -72,8 +72,13 @@ When('User executes query {string} and store result in key {string}', async (inp
 
 Then('Validate that user is on {string}', async (pageName: string) => {
     Logger.log(LogLevel.INFO, `UniversalStep: Validate that user is on ${pageName}`)
-    await InvokeMethod(pageName, "isOpen", [])
-    currentPageName = pageName;
+    await InvokeMethod(pageName, "isOpen", []).then((isPageOpen) => {
+        if (isPageOpen) {
+            currentPageName = pageName;
+            Logger.log(LogLevel.INFO, `UniversalStep: Changed the current page to ${pageName}`)
+        } else
+            Logger.log(LogLevel.ERROR, `UniversalStep: User is not on ${pageName}`)
+    })
 });
 
 Then('Validate that {string} has inner text {string}', async (elementObject: string, innerText: string) => {
