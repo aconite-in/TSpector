@@ -8,7 +8,6 @@ export class BaseElement {
     protected locatorType: string
 
     public get(): ElementFinder {
-        Logger.log(LogLevel.INFO, `BaseElement: Starting to find element by locator ${this.locatorType} with value ${this.locatorValue}`)
         switch (this.locatorType.toLocaleLowerCase()) {
             case "css":
                 return element(by.css(this.locatorValue));
