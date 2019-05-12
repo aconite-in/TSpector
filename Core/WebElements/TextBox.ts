@@ -15,8 +15,8 @@ export class TextBox extends BaseElement {
             await browser.wait(async () => { return await this.get().isEnabled(); }, 10000).then(async () => {
                 await this.get().clear();
                 await this.get().sendKeys(inputText);
-                console.log("Enter text on " + inputText);
-            }, function (err) { console.log("1Enter text on " + inputText + " failed"); }); //throw new Error('Error occurred!'); this will fail the whole script
-        }, function (err) { console.log("2Enter text on " + inputText + " failed"); });
+                Logger.log(LogLevel.INFO, `TextBox: Typed ${inputText} on element with ${this.locatorType} =  ${this.locatorValue}`);
+            }, (err) => { Logger.log(LogLevel.ERROR, `TextBox: Failed to Type ${inputText} on element with ${this.locatorType} =  ${this.locatorValue}`); }); //throw new Error('Error occurred!'); this will fail the whole script
+        }, (err) => { Logger.log(LogLevel.ERROR, `TextBox: Failed to Type ${inputText} on element with ${this.locatorType} =  ${this.locatorValue}`); });
     }
 }
