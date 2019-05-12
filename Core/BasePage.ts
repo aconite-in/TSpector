@@ -14,7 +14,7 @@ export abstract class BasePage {
     abstract navigateTo(): void;
 
     async isOpen() {
-        await browser.wait(async () => { return await this.xPathValidator.isDisplayed() })
+        return await browser.wait(async () => { return await this.xPathValidator.isDisplayed() })
             .then((isDisplayed) => { return isDisplayed; })
             .catch(() => { return false; })
     }
