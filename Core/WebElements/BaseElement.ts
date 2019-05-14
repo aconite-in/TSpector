@@ -37,12 +37,12 @@ export class BaseElement {
         }
     }
 
-    public async validateInnerText(validationText: string) {
+    public async validateInnerText(validationText: string, inverseResult: boolean = false) {
         let innertext: string = await this.get().getText();
         if (innertext != validationText)
-            Logger.log(LogLevel.ERROR, innertext + " did not match with  " + validationText)
+            Logger.log(inverseResult ? LogLevel.INFO : LogLevel.ERROR, `BaseElement: Inner text did not matched.\n\t+ ${innertext}\n\t- ${validationText}`)
         else
-            Logger.log(LogLevel.INFO, innertext + " did matched with  " + validationText)
+            Logger.log(inverseResult ? LogLevel.ERROR : LogLevel.INFO, `BaseElement: Inner text matched.\n\t+ "${innertext}"`)
     }
 
     public async getDisplayedText() {

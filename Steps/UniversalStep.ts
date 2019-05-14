@@ -94,3 +94,7 @@ Then('Validate that user is on {string}', async (pageName: string) => {
 Then('Validate that {string} has inner text {string}', async (elementObject: string, innerText: string) => {
     await InvokeElementMethod(elementObject, "validateInnerText", [innerText]);
 });
+
+Then('Validate that {string} does not have inner text {string}', async (elementObject: string, innerText: string) => {
+    await InvokeElementMethod(elementObject, "validateInnerText", [innerText, true]);
+});
