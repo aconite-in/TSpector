@@ -1,13 +1,13 @@
 import { appendFile, writeFile } from "fs";
 import { assert } from "chai";
 
-export enum LogLevel { INFO, ERROR, WARN }
+export enum LogLevel { DEBUG, INFO, ERROR, WARN }
 
 export class Logger {
 
     static fileName: string = "TSpector.log"
 
-    static init(fileName?: string) {
+    static InstantiateLogger(fileName?: string) {
         writeFile(this.fileName, "", (err) => { if (err) console.error(err); })
     }
 

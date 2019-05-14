@@ -30,6 +30,6 @@ export const config: Config = {
     onPrepare: function () {
         browser.driver.manage().window().maximize();
         browser.ignoreSynchronization = true;
-        Logger.init();
+        Logger.InstantiateLogger();
     }
 };
