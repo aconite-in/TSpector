@@ -13,6 +13,9 @@ export class Logger {
 
     static log(level: LogLevel, message: string): void {
         switch (level) {
+            case LogLevel.DEBUG:
+                message = "\nDEBUG: " + message;
+                appendFile(this.fileName, message, (err) => { if (err) console.error(err); });
             case LogLevel.INFO:
                 message = "\nINFO: " + message;
                 appendFile(this.fileName, message, (err) => { if (err) console.error(err); });
