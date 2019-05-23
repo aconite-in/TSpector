@@ -68,9 +68,12 @@ When('User click {string} if present', async (elementObject: string) => {
     await InvokeElementMethod(elementObject, "click", [false]);
 });
 
-When('User executes query {string} and store result in key {string}', async (inputText: string, elementObject: string) => {
-    Logger.log(LogLevel.INFO, `UniversalStep: User executes query  ${inputText}  and store result in key ${elementObject}`)
-    await SQLHelper.query();
+When('System EXE SQL: SELECT SINGLE {string} FROM {string} WHERE {string}', async (columnName: string, tableName: string, where: string) => {
+    Logger.log(LogLevel.INFO, `UniversalStep: User executes query  ${columnName}  and store result in key ${tableName}`)
+    await SQLHelper.query(columnName, tableName, where).then((value) => {
+        cacheManger.set(`#{${columnName}}`, value)
+        Logger.log(LogLevel.INFO, `SQL Info: Saved ${value} with key ${columnName}`);
+    }).catch((err) => Logger.log(LogLevel.ERROR, `SQL Execption: ${err}`))
 });
 
 When('User captures text from {string} as key {string}', async (elementObject: string, key: string) => {
