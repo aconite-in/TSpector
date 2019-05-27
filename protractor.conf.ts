@@ -32,7 +32,6 @@ export const config: Config = {
         browser.driver.manage().window().maximize();
         browser.ignoreSynchronization = true;
         Logger.InstantiateLogger();
-    }
     },
     // onComplete: () => {
     //     var reporter = require('cucumber-html-reporter');
