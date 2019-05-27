@@ -23,7 +23,8 @@ export const config: Config = {
 
     cucumberOpts: {
         require: 'Steps/*.js',
-        tags: false,
+        //format: ['json:TSpector.json'],
+        tags: ['@smoke'],
         profile: false,
         'no-source': true,
     },
@@ -32,4 +33,24 @@ export const config: Config = {
         browser.ignoreSynchronization = true;
         Logger.InstantiateLogger();
     }
+    },
+    // onComplete: () => {
+    //     var reporter = require('cucumber-html-reporter');
+
+    //     var options = {
+    //         theme: 'bootstrap',
+    //         jsonFile: 'TSpector.json',
+    //         output: 'TSpector.html',
+    //         reportSuiteAsScenarios: true,
+    //         metadata: {
+    //             "App Version": "0.3.2",
+    //             "Test Environment": "STAGING",
+    //             "Browser": "Chrome  54.0.2840.98",
+    //             "Platform": "Windows 10",
+    //             "Parallel": "Scenarios",
+    //             "Executed": "Remote"
+    //         }
+    //     };
+    //     reporter.generate(options);
+    // }
 };
