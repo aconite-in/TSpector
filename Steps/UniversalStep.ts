@@ -1,4 +1,4 @@
-import { Given, When, Then, Before, HookScenarioResult } from "cucumber";
+import { Given, When, Then, Before, HookScenarioResult, TableDefinition } from "cucumber";
 import { Logger, LogLevel } from "../Core/DataAccess/Logger";
 import { SQLHelper } from "../Core/DataAccess/SQLHelper";
 import { browser } from "protractor";
@@ -108,4 +108,8 @@ Then('Validate that {string} has inner text {string}', async (elementObject: str
 
 Then('Validate that {string} does not have inner text {string}', async (elementObject: string, innerText: string) => {
     await InvokeElementMethod(elementObject, "validateInnerText", [innerText, true]);
+});
+
+Then('Validate table {string} contains row', async (elementObject: string, table: TableDefinition) => {
+    await InvokeElementMethod(elementObject, "validateRow", [table]);
 });

@@ -1,6 +1,7 @@
 import { BaseElement } from "./BaseElement";
-import { $, element, by, ElementFinder } from "protractor";
+import { $, element, by, ElementFinder, browser } from "protractor";
 import { Logger, LogLevel } from "../DataAccess/Logger";
+import { TableDefinition } from "cucumber";
 
 
 export class HtmlTable extends BaseElement {
@@ -34,7 +35,7 @@ export class HtmlTable extends BaseElement {
                             else {
                                 nextButton.click();
                             }
-                        }) 
+                        })
                         await this.clickByText(cellTagClick, cellText);
                     }
                     else
@@ -42,6 +43,35 @@ export class HtmlTable extends BaseElement {
                 })
             } else
                 Logger.log(LogLevel.ERROR, `Unable to find table with ${this.locatorType} = ${this.locatorValue}`);
+        })
+    }
+
+    public async validateRow(tableFromFeature: TableDefinition) {
+        let expectedRow = tableFromFeature.raw()[1];
+        let table = await this.get();
+        await table.isPresent().then(async (tablePresent) => {
+            if (tablePresent) {
+                // let rows = await table.all(by.tagName('tr'));
+                // await rows.forEach(async (row: ElementFinder, i) => {
+                //     if (i != 0) {
+                //         let cells = await row.all(by.tagName('td'))
+                //         await cells.forEach(async (cell: ElementFinder, j) => {
+                //             await cell.getText().then((cellTxt) => {
+                //                 if (expectedRow[j] === cellTxt)
+                //                     true;
+                //             })
+                //         })
+                //     }
+                // })
+                let condition = expectedRow.filter(f => !f.startsWith('###')).map(v => `td='${v}'`).join(' and ')
+                let baseXpath = `//tr[${condition}]`
+                console.log(baseXpath);
+                let rows = await table.all(by.xpath(baseXpath)).count();
+                if (rows)
+                    Logger.log(LogLevel.INFO, `HtmlTable: Found at least a row with the given data\n\t+${expectedRow}`)
+                else
+                    Logger.log(LogLevel.ERROR, `HtmlTable: Unable to find row with the given data\n\t+${expectedRow}`)
+            }
         })
     }
 }
