@@ -1,6 +1,7 @@
 import { Given, When, Then, Before, HookScenarioResult } from "cucumber";
 import { Logger, LogLevel } from "../Core/DataAccess/Logger";
 import { SQLHelper } from "../Core/DataAccess/SQLHelper";
+import { browser } from "protractor";
 var { setDefaultTimeout } = require('cucumber');
 setDefaultTimeout(120 * 1000);
 
@@ -67,6 +68,13 @@ When('User click {string} if present', async (elementObject: string) => {
     Logger.log(LogLevel.INFO, `UniversalStep: User clicks ${elementObject} if present`)
     await InvokeElementMethod(elementObject, "click", [false]);
 });
+
+
+When('System waits for {int} seconds', async (timeOut: number) => {
+    await browser.sleep(timeOut * 1000);
+    Logger.log(LogLevel.INFO, `User waited for ${timeOut} seconds`)
+});
+
 
 When('System EXE SQL: SELECT SINGLE {string} FROM {string} WHERE {string}', async (columnName: string, tableName: string, where: string) => {
     Logger.log(LogLevel.INFO, `UniversalStep: User executes query  ${columnName}  and store result in key ${tableName}`)
