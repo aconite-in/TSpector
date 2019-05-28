@@ -69,19 +69,12 @@ When('User click {string} if present', async (elementObject: string) => {
     await InvokeElementMethod(elementObject, "click", [false]);
 });
 
-
-When('System waits for {int} seconds', async (timeOut: number) => {
-    await browser.sleep(timeOut * 1000);
-    Logger.log(LogLevel.INFO, `User waited for ${timeOut} seconds`)
-});
-
-
-When('System EXE SQL: SELECT SINGLE {string} FROM {string} WHERE {string}', async (columnName: string, tableName: string, where: string) => {
+When('System EXE SQL: SELECT SINGLE {string} FROM {string} WHERE {string}', async (columnName: string, tableName: string, whereClause: string) => {
     Logger.log(LogLevel.INFO, `UniversalStep: User executes query  ${columnName}  and store result in key ${tableName}`)
-    await SQLHelper.query(columnName, tableName, where).then((value) => {
-        cacheManger.set(`#{${columnName}}`, value)
-        Logger.log(LogLevel.INFO, `SQL Info: Saved ${value} with key ${columnName}`);
-    }).catch((err) => Logger.log(LogLevel.ERROR, `SQL Execption: ${err}`))
+    await SQLHelper.query(columnName, tableName, whereClause).then((value) => {
+        cacheManger.set(`#{${columnName}}`, value);
+        Logger.log(LogLevel.INFO, `SQL: result stored in key ${columnName} with value ${value}`)
+    }).catch((err) => Logger.log(LogLevel.INFO, `SQL: Could not be executed with excepetion: ${err}`))
 });
 
 When('User captures text from {string} as key {string}', async (elementObject: string, key: string) => {
