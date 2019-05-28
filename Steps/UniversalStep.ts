@@ -1,6 +1,7 @@
 import { Given, When, Then, Before, HookScenarioResult } from "cucumber";
 import { Logger, LogLevel } from "../Core/DataAccess/Logger";
 import { SQLHelper } from "../Core/DataAccess/SQLHelper";
+import { browser } from "protractor";
 var { setDefaultTimeout } = require('cucumber');
 setDefaultTimeout(120 * 1000);
 
@@ -68,9 +69,19 @@ When('User click {string} if present', async (elementObject: string) => {
     await InvokeElementMethod(elementObject, "click", [false]);
 });
 
-When('User executes query {string} and store result in key {string}', async (inputText: string, elementObject: string) => {
-    Logger.log(LogLevel.INFO, `UniversalStep: User executes query  ${inputText}  and store result in key ${elementObject}`)
-    await SQLHelper.query();
+
+When('System waits for {int} seconds', async (timeOut: number) => {
+    await browser.sleep(timeOut * 1000);
+    Logger.log(LogLevel.INFO, `User waited for ${timeOut} seconds`)
+});
+
+
+When('System EXE SQL: SELECT SINGLE {string} FROM {string} WHERE {string}', async (columnName: string, tableName: string, where: string) => {
+    Logger.log(LogLevel.INFO, `UniversalStep: User executes query  ${columnName}  and store result in key ${tableName}`)
+    await SQLHelper.query(columnName, tableName, where).then((value) => {
+        cacheManger.set(`#{${columnName}}`, value)
+        Logger.log(LogLevel.INFO, `SQL Info: Saved ${value} with key ${columnName}`);
+    }).catch((err) => Logger.log(LogLevel.ERROR, `SQL Execption: ${err}`))
 });
 
 When('User captures text from {string} as key {string}', async (elementObject: string, key: string) => {

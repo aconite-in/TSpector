@@ -1,5 +1,4 @@
 import { ElementFinder, element, by } from "protractor";
-import { assert } from "chai"
 import { Logger, LogLevel } from "../DataAccess/Logger";
 
 export class BaseElement {
