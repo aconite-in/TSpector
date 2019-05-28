@@ -84,6 +84,11 @@ When('User captures text from {string} as key {string}', async (elementObject: s
     cacheManger.set(`#{${key}}`, displayedTxt);
 });
 
+When('System waits for {int} seconds', async (timeOut: number) => {
+    await browser.sleep(timeOut * 1000);
+    Logger.log(LogLevel.INFO, `User waited for ${timeOut} seconds`)
+});
+
 Then('Validate that user is on {string}', async (pageName: string) => {
     Logger.log(LogLevel.INFO, `UniversalStep: Validate that user is on ${pageName}`)
     await InvokeMethod(pageName, "isOpen", []).then((isPageOpen) => {
