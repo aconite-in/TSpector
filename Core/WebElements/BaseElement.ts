@@ -31,6 +31,8 @@ export class BaseElement {
                 return element(by.id(this.locatorValue));
             case "model":
                 return element(by.model(this.locatorValue));
+            case "text":
+                return element(by.xpath(`\\*[text()='${this.locatorValue}']`));
             default:
                 return element(by.id(this.locatorValue));
         }

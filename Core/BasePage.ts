@@ -7,9 +7,10 @@ export abstract class BasePage {
     public xPathValidator: BaseElement;
     public timeout?: number;
 
-    constructor(pageURL: string, xPathValidator: string, timeout?: number) {
+    constructor(pageURL: string, xPathValidator: string, timeout?: number, locatorType?: string) {
         this.pageURL = pageURL;
-        this.xPathValidator = new BaseElement("xpath", xPathValidator);
+        locatorType = locatorType ? locatorType : "xpath";
+        this.xPathValidator = new BaseElement(locatorType, xPathValidator);
         this.timeout = timeout ? timeout : 10000;
     }
 
