@@ -13,7 +13,7 @@ export class Logger {
         writeFile(this.fileName, "", (err) => { if (err) console.error(err); })
     }
 
-    static log(level: LogLevel, message: string): void {
+    static log(level: LogLevel, message: string) {
         switch (level) {
             case LogLevel.DEBUG:
                 message = "\nDEBUG: " + message;
@@ -29,10 +29,11 @@ export class Logger {
             case LogLevel.ERROR:
                 message = "\nERROR: " + message;
                 appendFile(this.fileName, message, (err) => { if (err) console.error(err); });
-                browser.takeScreenshot().then(function (png) {
-                    Logger.writeScreenShot(png, 'error.png');
+                browser.takeScreenshot().then(async (png) => {
+                    let dateString = new Date().toDateString();
+                    await Logger.writeScreenShot(png, `Error_${dateString}.png`);
+                    assert.fail(message);
                 });
-                assert.fail(message);
                 break;
         }
     }
@@ -41,9 +42,9 @@ export class Logger {
         appendFile(this.fileName, `\n\n${subtitle}`, (err) => { if (err) console.error(err); });
     }
 
-    private static writeScreenShot(data: string, screenshotFilename: string) {
+    private static async  writeScreenShot(data: string, screenshotFilename: string) {
         var stream = fs.createWriteStream(screenshotFilename);
-        stream.write(new Buffer(data, 'base64'));
+        await stream.write(new Buffer(data, 'base64'));
         stream.end();
     }
 }
