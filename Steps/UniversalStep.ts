@@ -111,3 +111,7 @@ Then('Validate that {string} does not have inner text {string}', async (elementO
 Then('Validate table {string} contains row', async (elementObject: string, table: TableDefinition) => {
     await InvokeElementMethod(elementObject, "validateRow", [table]);
 });
+
+Then('Validate table {string} contains row in DB SQL SELECT {string} FROM {string} WHERE {string}', async (elementObject: string, columnName: string, tableName: string, whereClause: string) => {
+    await InvokeElementMethod(elementObject, "validateRowFromDB", [columnName, tableName, whereClause]);
+});
