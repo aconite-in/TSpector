@@ -37,6 +37,7 @@ async function InvokeElementMethod(element: string, action: string, args: any[])
 
 Before((scenario: HookScenarioResult) => {
     Logger.logSubHeading(`Scenario: ${scenario.pickle.name}`)
+    Logger.setCurrentScenario(scenario.pickle.name);
 })
 
 Given('User is on {string}', async (pageName: string) => {
