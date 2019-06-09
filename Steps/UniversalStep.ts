@@ -2,6 +2,7 @@ import { Given, When, Then, Before, HookScenarioResult, TableDefinition } from "
 import { Logger, LogLevel } from "../Core/DataAccess/Logger";
 import { SQLHelper } from "../Core/DataAccess/SQLHelper";
 import { browser } from "protractor";
+import { RestHelper } from "../Core/DataAccess/RestHelper";
 var { setDefaultTimeout } = require('cucumber');
 setDefaultTimeout(120 * 1000);
 
@@ -111,4 +112,28 @@ Then('Validate that {string} does not have inner text {string}', async (elementO
 
 Then('Validate table {string} contains row', async (elementObject: string, table: TableDefinition) => {
     await InvokeElementMethod(elementObject, "validateRow", [table]);
+});
+
+When('System makes GET request with parameter {string}', async (parameters: string) => {
+    await RestHelper.getRequest(parameters);
+});
+
+When('System makes POST request with parameter {string}', async (parameters: string) => {
+    await RestHelper.postRequest(parameters);
+});
+
+Given('API end point is {string}', async (apiEndPoint: string) => {
+    await RestHelper.setEndPoint(apiEndPoint);
+});
+
+Given('API default headers are {string}', async (headers: string) => {
+    await RestHelper.setDefaultHeaders(headers);
+});
+
+Then('Validate API response is {string}', async (expectedResponse: string) => {
+    await RestHelper.validateResponse(expectedResponse);
+});
+
+Then('Validate API response from file {string}', async (filePath: string) => {
+    await RestHelper.validateFromFile(filePath);
 });
