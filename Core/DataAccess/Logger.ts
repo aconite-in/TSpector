@@ -8,6 +8,7 @@ export enum LogLevel { DEBUG, INFO, ERROR, WARN }
 export class Logger {
 
     static fileName: string = "TSpector.log"
+    private static currentScenarioName = "";
 
     static InstantiateLogger(fileName?: string) {
         writeFile(this.fileName, "", (err) => { if (err) console.error(err); })
@@ -40,6 +41,10 @@ export class Logger {
 
     static logSubHeading(subtitle: string) {
         appendFile(this.fileName, `\n\n${subtitle}`, (err) => { if (err) console.error(err); });
+    }
+
+    static setCurrentScenario(currentScenarioName: string) {
+        this.currentScenarioName = currentScenarioName;
     }
 
     private static writeScreenShot(data: string, screenshotFilename: string) {
