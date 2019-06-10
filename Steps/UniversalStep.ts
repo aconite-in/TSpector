@@ -2,6 +2,7 @@ import { Given, When, Then, Before, HookScenarioResult, TableDefinition } from "
 import { Logger, LogLevel } from "../Core/DataAccess/Logger";
 import { SQLHelper } from "../Core/DataAccess/SQLHelper";
 import { browser } from "protractor";
+import { RestHelper } from "../Core/DataAccess/RestHelper";
 var { setDefaultTimeout } = require('cucumber');
 setDefaultTimeout(120 * 1000);
 
@@ -37,6 +38,7 @@ async function InvokeElementMethod(element: string, action: string, args: any[])
 
 Before((scenario: HookScenarioResult) => {
     Logger.logSubHeading(`Scenario: ${scenario.pickle.name}`)
+    Logger.setCurrentScenario(scenario.pickle.name);
 })
 
 Given('User is on {string}', async (pageName: string) => {
@@ -114,4 +116,28 @@ Then('Validate table {string} contains row', async (elementObject: string, table
 
 Then('Validate table {string} contains row in DB SQL SELECT {string} FROM {string} WHERE {string}', async (elementObject: string, columnName: string, tableName: string, whereClause: string) => {
     await InvokeElementMethod(elementObject, "validateRowFromDB", [columnName, tableName, whereClause]);
+});
+
+When('System makes GET request with parameter {string}', async (parameters: string) => {
+    await RestHelper.getRequest(parameters);
+});
+
+When('System makes POST request with parameter {string}', async (parameters: string) => {
+    await RestHelper.postRequest(parameters);
+});
+
+Given('API end point is {string}', async (apiEndPoint: string) => {
+    await RestHelper.setEndPoint(apiEndPoint);
+});
+
+Given('API default headers are {string}', async (headers: string) => {
+    await RestHelper.setDefaultHeaders(headers);
+});
+
+Then('Validate API response is {string}', async (expectedResponse: string) => {
+    await RestHelper.validateResponse(expectedResponse);
+});
+
+Then('Validate API response from file {string}', async (filePath: string) => {
+    await RestHelper.validateFromFile(filePath);
 });

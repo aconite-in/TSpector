@@ -8,6 +8,7 @@ export enum LogLevel { DEBUG, INFO, ERROR, WARN }
 export class Logger {
 
     static fileName: string = "TSpector.log"
+    private static currentScenarioName = "";
 
     static InstantiateLogger(fileName?: string) {
         writeFile(this.fileName, "", (err) => { if (err) console.error(err); })
@@ -29,10 +30,9 @@ export class Logger {
             case LogLevel.ERROR:
                 message = "\nERROR: " + message;
                 appendFile(this.fileName, message, (err) => { if (err) console.error(err); });
-                browser.takeScreenshot().then(async (png) => {
-                    let dateString = new Date().toDateString();
-                    await Logger.writeScreenShot(png, `Error_${dateString}.png`);
-                    assert.fail(message);
+                browser.takeScreenshot().then((png) => {
+                    Logger.writeScreenShot(png, `Failure_${this.currentScenarioName}.png`);
+
                 });
                 break;
         }
@@ -42,7 +42,11 @@ export class Logger {
         appendFile(this.fileName, `\n\n${subtitle}`, (err) => { if (err) console.error(err); });
     }
 
-    private static async  writeScreenShot(data: string, screenshotFilename: string) {
+    static setCurrentScenario(CurrentScenario: string) {
+        this.currentScenarioName = CurrentScenario
+    }
+
+    private static async writeScreenShot(data: string, screenshotFilename: string) {
         var stream = fs.createWriteStream(screenshotFilename);
         await stream.write(new Buffer(data, 'base64'));
         stream.end();

@@ -11,9 +11,12 @@
     "chai": "^4.2.0",
     "cucumber": "^5.1.0",
     "mssql": "^5.1.0",
-    "protractor": "^5.4.2"
+    "protractor": "^5.4.2",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.7"
   },
   "devDependencies": {
+    "@types/request-promise-native": "^1.0.16",
     "cucumber-html-reporter": "^5.0.0",
     "protractor-cucumber-framework": "^6.1.1"
   },
