@@ -30,10 +30,10 @@ export class Logger {
             case LogLevel.ERROR:
                 message = "\nERROR: " + message;
                 appendFile(this.fileName, message, (err) => { if (err) console.error(err); });
-                browser.takeScreenshot().then((png) => {
-                    Logger.writeScreenShot(png, `Failure_${this.currentScenarioName}.png`);
-
-                });
+                // browser.takeScreenshot().then((png) => {
+                //     Logger.writeScreenShot(png, `Failure_${this.currentScenarioName}.png`);
+                // });
+                assert.fail();
                 break;
         }
     }
