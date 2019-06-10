@@ -41,6 +41,16 @@ Before((scenario: HookScenarioResult) => {
     Logger.setCurrentScenario(scenario.pickle.name);
 })
 
+// After(function (scenario) {
+//     if (scenario.result.status === 'failed') {
+//         var attach = this.attach;
+//         return browser.takeScreenshot().then(function (png) {
+//             var decodedImage = new Buffer(png, "base64");
+//             return attach(decodedImage, "image/png");
+//         });
+//     }
+// });
+
 Given('User is on {string}', async (pageName: string) => {
     Logger.log(LogLevel.INFO, `UniversalStep: User is on ${pageName}`)
     await InvokeMethod(pageName, "navigateTo", [])
