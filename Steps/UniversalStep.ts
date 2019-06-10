@@ -1,4 +1,4 @@
-import { Given, When, Then, Before, HookScenarioResult, TableDefinition } from "cucumber";
+import { Given, When, Then, Before, HookScenarioResult, TableDefinition, After } from "cucumber";
 import { Logger, LogLevel } from "../Core/DataAccess/Logger";
 import { SQLHelper } from "../Core/DataAccess/SQLHelper";
 import { browser } from "protractor";
