@@ -1,5 +1,6 @@
 import { BaseElement } from "./WebElements/BaseElement";
 import { browser } from "protractor";
+import { config } from "../protractor.conf";
 
 export abstract class BasePage {
 
@@ -11,7 +12,7 @@ export abstract class BasePage {
         this.pageURL = pageURL;
         locatorType = locatorType ? locatorType : "xpath";
         this.xPathValidator = new BaseElement(locatorType, xPathValidator);
-        this.timeout = timeout ? timeout : 10000;
+        this.timeout = timeout ? timeout : config.getPageTimeout;
     }
 
     abstract navigateTo(): void;

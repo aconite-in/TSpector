@@ -6,6 +6,7 @@ export const config: Config = {
     SELENIUM_PROMISE_MANAGER: true,
     getPageTimeout: 100000,
     allScriptsTimeout: 500000,
+    elementTimeout: 10000,
     framework: 'custom',
     // path relative to the current config file
     frameworkPath: "./node_modules/protractor-cucumber-framework",
@@ -23,8 +24,8 @@ export const config: Config = {
 
     cucumberOpts: {
         require: 'Steps/*.js',
-        //format: ['json:TSpector.json'],
-        tags: ['@smoke'],
+        tags: '@smoke',
+        //format: "json:TSpector.json",
         profile: false,
         'no-source': true,
     },
@@ -33,7 +34,7 @@ export const config: Config = {
         browser.ignoreSynchronization = true;
         Logger.InstantiateLogger();
     },
-    // onComplete: () => {
+    // onComplete: function () {
     //     var reporter = require('cucumber-html-reporter');
 
     //     var options = {
@@ -41,6 +42,7 @@ export const config: Config = {
     //         jsonFile: 'TSpector.json',
     //         output: 'TSpector.html',
     //         reportSuiteAsScenarios: true,
+    //         launchReport: true,
     //         metadata: {
     //             "App Version": "0.3.2",
     //             "Test Environment": "STAGING",
