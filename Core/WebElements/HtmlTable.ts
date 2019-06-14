@@ -79,8 +79,8 @@ export class HtmlTable extends BaseElement {
         const sql = require('mssql')
         await sql.connect('mssql://www:www@agpjaxsql01/PaySpan_JobSystem');
         const result = await sql.query(`select top 1 ${columnName} from ${tableName} where ${where}`);
-        let expectedRow = Object.values(result.recordset[0])
-        let condition = expectedRow.map(v => `td='${v}'`).join(' and ')
+        let expectedRow = Object.values(result.recordset[0]).map(v => String(v));
+        let condition = expectedRow.filter(f => !f.startsWith('###')).map(v => `td='${v}'`).join(' and ');
         let baseXpath = `//tr[${condition}]`;
         let table = await this.get();
         await table.isPresent().then(async (tablePresent) => {
