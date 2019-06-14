@@ -17,7 +17,6 @@ export class RestHelper {
         this.options = {
             uri: this.endPoint
         }
-        this.setDefaultHeaders()
     }
 
     public static setDefaultHeaders(headers?: string) {
@@ -26,7 +25,7 @@ export class RestHelper {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'
             }
         else {
-            this.options.headers = JSON.stringify(headers)
+            this.options.headers = JSON.parse(headers)
         }
     }
 
@@ -53,9 +52,29 @@ export class RestHelper {
     }
 
     public static async postRequest(parameters: string) {
-        this.options.body = parameters;
+        this.options.body = JSON.parse(parameters);
+        this.options.json = true;
         this.response = await request.post(this.options);
         Logger.log(LogLevel.INFO, `System made a sucessful post request to ${this.endPoint} with parameters\n\t\t+${parameters}`)
+    }
+
+
+    public static async postComplete(requestfileName: string, responsefileName: string) {
+        this.options.body = JSON.parse(await this.getFileContent(requestfileName));
+        this.options.json = true;
+        this.response = await request.post(this.options);
+        Logger.log(LogLevel.INFO, `Successful API reqeuest with parameters ${this.options}`)
+        let expectedResponse = JSON.parse(await this.getFileContent(responsefileName))
+        if (JSON.stringify(this.response) == JSON.stringify(expectedResponse))
+            Logger.log(LogLevel.INFO, "Expected response matches the API")
+        else
+            Logger.log(LogLevel.ERROR, "Expected response does not matches the API")
+
+    }
+
+    public static async getFileContent(filePath: string) {
+        let filecontents = await fs.readFileSync(__dirname + '..\\..\\..\\' + filePath);
+        return filecontents.toString();
     }
 
 }

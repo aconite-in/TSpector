@@ -136,6 +136,10 @@ When('System makes POST request with parameter {string}', async (parameters: str
     await RestHelper.postRequest(parameters);
 });
 
+When('System makes POST request with parameter from {string} and compare response again {string}', async (requestfileName: string, responsefileName: string) => {
+    await RestHelper.postComplete(requestfileName, responsefileName);
+});
+
 Given('API end point is {string}', async (apiEndPoint: string) => {
     await RestHelper.setEndPoint(apiEndPoint);
 });
