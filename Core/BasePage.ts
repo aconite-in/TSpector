@@ -1,6 +1,5 @@
-import { BaseElement } from "./WebElements/BaseElement";
 import { browser } from "protractor";
-import { config } from "../protractor.conf";
+import { BaseElement } from "./WebElements/BaseElement";
 
 export abstract class BasePage {
 
@@ -8,18 +7,26 @@ export abstract class BasePage {
     public xPathValidator: BaseElement;
     public timeout?: number;
 
-    constructor(pageURL: string, xPathValidator: string, timeout?: number, locatorType?: string) {
+    constructor(pageURL: string, xPathValidator: string, timeout?: number, locatortype?: string) {
         this.pageURL = pageURL;
-        locatorType = locatorType ? locatorType : "xpath";
-        this.xPathValidator = new BaseElement(locatorType, xPathValidator);
-        this.timeout = timeout ? timeout : config.getPageTimeout;
+        locatortype = locatortype ? locatortype : "xpath";
+        this.xPathValidator = new BaseElement(locatortype, xPathValidator);
+        this.timeout = timeout ? timeout : 200000;
     }
 
-    abstract navigateTo(): void;
+    public abstract navigateTo(): void;
 
-    async isOpen() {
-        return await browser.wait(async () => { return await this.xPathValidator.get().isPresent() }, this.timeout)
-            .then((isDisplayed) => { return isDisplayed; })
-            .catch(() => { return false; })
+    // async isOpen() {
+    //     return await browser.wait(async () => { return await this.xPathValidator.get().isPresent() }, this.timeout)
+    //         .then((isDisplayed) => { return isDisplayed; })
+    //         .catch(() => { return false; })
+    // }
+
+    public async isOpen(useDefaultTimeout: boolean = false) {
+        return await browser.wait(async () => await this.xPathValidator.get().isPresent(), useDefaultTimeout ? this.timeout : 10)
+            .then((isDisplayed) => isDisplayed)
+            .catch(() => false);
+
     }
+
 }
