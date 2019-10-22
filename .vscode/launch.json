@@ -12,7 +12,8 @@
             "args": [
                 "protractor.conf.js"
             ],
-            "cwd": "${workspaceRoot}"
+            "cwd": "${workspaceRoot}",
+            "preLaunchTask": "Build"
         }
     ]
 }

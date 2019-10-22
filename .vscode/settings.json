@@ -4,7 +4,11 @@
     ],
     "cucumberautocomplete.syncfeatures": "features/*.feature",
     "cucumberautocomplete.strictGherkinCompletion": true,
+    "cucumberautocomplete.pages": {
+        "users": "pages/*.ts",
+    },
     "editor.formatOnSave": true,
+    "editor.wordWrap": "on",
     "files.exclude": {
         "**/.git": true,
         ".gitignore": true,
@@ -12,6 +16,7 @@
         "**/package.json": true,
         "**/*.js": true,
         "**/*.js.map": true,
-        "**/node_modules": true
+        "**/node_modules": true,
+        "tslint.json": true
     }
 }
