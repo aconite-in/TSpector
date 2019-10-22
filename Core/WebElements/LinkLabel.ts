@@ -1,19 +1,17 @@
-import { BaseElement } from "./BaseElement";
-import { browser } from "protractor";
-import { protractor } from "protractor/built/ptor";
-import { Logger, LogLevel } from "../DataAccess/Logger";
+
+import { browser, protractor } from "protractor";
 import { config } from "../../protractor.conf";
+import { Logger, LogLevel } from "../DataAccess/Logger";
+import { BaseElement } from "./BaseElement";
 
 export class LinkLabel extends BaseElement {
-
     public async click() {
-        await browser.wait(async () => { return await this.get().isPresent(); }, config.elementTimeout).then(async () => {
-            var EC = protractor.ExpectedConditions;
-            var elm = await this.get();
-            await browser.wait(async () => { return await EC.elementToBeClickable(elm); }, config.elementTimeout).then(async () => {
-                await elm.click();
+        await browser.wait(async () => await this.get().isDisplayed(), config.elementTimeout).then(async () => {
+            const EC = protractor.ExpectedConditions;
+            await browser.wait(async () => await EC.elementToBeClickable(this.get()), config.elementTimeout).then(async () => {
+                await this.get().click();
                 Logger.log(LogLevel.INFO, `LinkLabel: Clicked label with ${this.locatorType} =  ${this.locatorValue}`);
-            }, (err) => { Logger.log(LogLevel.ERROR, `LinkLabel: Failed to click label with ${this.locatorType} =  ${this.locatorValue}`) });
-        }, (err) => { Logger.log(LogLevel.ERROR, `LinkLabel: Failed to click label with ${this.locatorType} =  ${this.locatorValue}`) });
+            }, (err) => { Logger.log(LogLevel.ERROR, `LinkLabel: Failed to click label with ${this.locatorType} =  ${this.locatorValue}`); });
+        }, (err) => { Logger.log(LogLevel.ERROR, `LinkLabel: Failed to click label with ${this.locatorType} =  ${this.locatorValue}`); });
     }
 }
