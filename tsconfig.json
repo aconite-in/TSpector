@@ -9,7 +9,7 @@
         // "outFile": "./",
         //"outDir": "./bin",
         "strict": true,
-        "esModuleInterop": true,
+        "esModuleInterop": true
     },
     "exclude": [
         "node_modules"
