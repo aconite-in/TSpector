@@ -1,4 +1,4 @@
-import reporter = require("cucumber-html-reporter");
+const reporter = require("cucumber-html-reporter");
 const options = {
     // jsonFile: `./Reports/TSpector_@set2.json`,
     jsonDir: "./Reports",
