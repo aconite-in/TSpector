@@ -152,7 +152,7 @@ You can view the usage of step by pressing `Cntrl` + `Space`.
 ![StepDocumentation](GetStarted/img/StepDocumentation.png)
 
 
----
+----
 *Happy Testing*
 
----
+----
